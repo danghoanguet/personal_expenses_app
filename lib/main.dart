@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/chart_card.dart';
+import 'package:flutter_complete_guide/text_field_card.dart';
 import 'package:flutter_complete_guide/transaction.dart';
 import 'package:flutter_complete_guide/transaction_card.dart';
 
@@ -30,8 +32,8 @@ class MyHomePage extends StatelessWidget {
         id: 't6', title: 'new food', amount: 39.99, date: DateTime.now()),
   ];
 
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,62 +41,27 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Flutter App'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Card(
-            // this card take it's child size
-            color: Colors.blue,
-            elevation: 5,
-            child: Container(
-              width: double.infinity,
-              //height: 100,
-              child: Text(
-                  'CHART!'), // this text size depends on its String we give so to set size we need container wraped around it
-            ),
-          ),
-          Card(
-            child: Container(
-              margin: EdgeInsets.all(5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextField(
-                    controller: titleController,
-                    decoration: InputDecoration(
-                      labelText: 'Enter your title',
-                    ),
-                  ),
-                  TextField(
-                    controller: amountController,
-                    decoration: InputDecoration(
-                      labelText: 'Enter your amount',
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      print(
-                          "${titleController.text}\n${amountController.text}");
-                    },
-                    child: Text('Add transaction'),
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.purple),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Column(
-            children: transactions
-                .map(
-                  (transaction) => TransactionCard(transaction: transaction),
-                )
-                .toList(),
-          ),
-        ],
-      ),
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ChartCard(),
+        TextFieldCard(
+            titleController: _titleController,
+            amountController: _amountController),
+        Column(
+          children: transactions
+              .map(
+                (transaction) => TransactionCard(transaction: transaction),
+              )
+              .toList(),
+        ),
+      ],
     );
   }
 }
