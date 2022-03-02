@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class TextFieldCard extends StatelessWidget {
-  final TextEditingController titleController;
-  final TextEditingController amountController;
-  const TextFieldCard({Key key, this.titleController, this.amountController})
-      : super(key: key);
+class NewTransaction extends StatelessWidget {
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+  final Function onSubmit;
+  NewTransaction({Key? key, required this.onSubmit}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,7 @@ class TextFieldCard extends StatelessWidget {
               ),
             ),
             TextField(
+              keyboardType: TextInputType.number,
               controller: amountController,
               decoration: InputDecoration(
                 labelText: 'Enter your amount',
@@ -28,7 +29,10 @@ class TextFieldCard extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                print("${titleController.text}\n${amountController.text}");
+                onSubmit(
+                  titleController.text,
+                  double.parse(amountController.text),
+                );
               },
               child: Text('Add transaction'),
               style: ButtonStyle(

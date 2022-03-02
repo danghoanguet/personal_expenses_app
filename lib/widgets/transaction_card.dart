@@ -1,34 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/transaction.dart';
+import 'package:flutter_complete_guide/models/transaction.dart';
 import 'package:intl/intl.dart';
 
 class TransactionCard extends StatelessWidget {
   final Transaction transaction;
-  const TransactionCard({Key key, @required this.transaction})
+  const TransactionCard({Key? key, required this.transaction})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             decoration: BoxDecoration(
-                border: Border.all(width: 1.5, color: Colors.purple)),
+              color: Colors.purple,
+              border: Border.all(width: 1.5, color: Colors.purple),
+              shape: BoxShape.circle,
+            ),
             child: Text(
               '\$' + '${transaction.amount}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.purple,
-                fontSize: 20,
+                color: Colors.white,
+                fontSize: 10,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 transaction.title,
@@ -47,6 +52,13 @@ class TransactionCard extends StatelessWidget {
               ),
             ],
           ),
+          Spacer(),
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ))
         ],
       ),
     );

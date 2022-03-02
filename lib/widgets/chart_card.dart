@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChartCard extends StatelessWidget {
-  const ChartCard({Key key}) : super(key: key);
+  const ChartCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
