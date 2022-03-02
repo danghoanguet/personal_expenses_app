@@ -19,11 +19,10 @@ class MyApp extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold)),
         appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-                titleLarge: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold))),
+            titleTextStyle: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 20,
+                fontWeight: FontWeight.bold)),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
             .copyWith(secondary: Colors.amber),
       ),
@@ -39,16 +38,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    Transaction(
-        id: 't1', title: 'new shoes', amount: 69.99, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'new jacket', amount: 99.99, date: DateTime.now()),
-    Transaction(
-        id: 't3', title: 'new computer', amount: 2069.99, date: DateTime.now()),
-    Transaction(
-        id: 't4', title: 'new watch', amount: 169.99, date: DateTime.now()),
-    Transaction(
-        id: 't5', title: 'new shirt', amount: 49.99, date: DateTime.now()),
+    // Transaction(
+    //     id: 't1', title: 'new shoes', amount: 69.99, date: DateTime.now()),
+    // Transaction(
+    //     id: 't2', title: 'new jacket', amount: 99.99, date: DateTime.now()),
+    // Transaction(
+    //     id: 't3', title: 'new computer', amount: 2069.99, date: DateTime.now()),
+    // Transaction(
+    //     id: 't4', title: 'new watch', amount: 169.99, date: DateTime.now()),
+    // Transaction(
+    //     id: 't5', title: 'new shirt', amount: 49.99, date: DateTime.now()),
     // Transaction(
     //     id: 't6', title: 'new food', amount: 39.99, date: DateTime.now()),
   ];
