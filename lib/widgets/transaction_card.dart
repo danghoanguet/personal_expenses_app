@@ -22,7 +22,7 @@ class TransactionCard extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Text(
-              '\$' + '${transaction.amount}',
+              '\$' + '${transaction.amount.toStringAsFixed(2)}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
