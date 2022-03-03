@@ -41,27 +41,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //     id: 't1', title: 'new shoes', amount: 69.99, date: DateTime.now()),
-    // Transaction(
-    //     id: 't2',
-    //     title: 'new jacket',
-    //     amount: 99.99,
-    //     date: DateTime.now().subtract(Duration(days: 1))),
-    // Transaction(
-    //     id: 't3',
-    //     title: 'new computer',
-    //     amount: 2069.99,
-    //     date: DateTime.now().subtract(Duration(days: 2))),
-    // Transaction(
-    //     id: 't4',
-    //     title: 'new watch',
-    //     amount: 169.99,
-    //     date: DateTime.now().subtract(Duration(days: 3))),
-    // Transaction(
-    //     id: 't5', title: 'new shirt', amount: 49.99, date: DateTime.now()),
-    // Transaction(
-    //     id: 't6', title: 'new food', amount: 39.99, date: DateTime.now()),
+    Transaction(
+        id: 't1', title: 'new shoes', amount: 69.99, date: DateTime.now()),
+    Transaction(
+        id: 't2',
+        title: 'new jacket',
+        amount: 99.99,
+        date: DateTime.now().subtract(Duration(days: 1))),
+    Transaction(
+        id: 't3',
+        title: 'new computer',
+        amount: 2069.99,
+        date: DateTime.now().subtract(Duration(days: 2))),
+    Transaction(
+        id: 't4',
+        title: 'new watch',
+        amount: 169.99,
+        date: DateTime.now().subtract(Duration(days: 3))),
+    Transaction(
+        id: 't5', title: 'new shirt', amount: 49.99, date: DateTime.now()),
+    Transaction(
+        id: 't6', title: 'new food', amount: 39.99, date: DateTime.now()),
   ];
 
   //Get a list of transaction which date is 7 day from DateTime.now()

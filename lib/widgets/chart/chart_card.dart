@@ -22,7 +22,7 @@ class ChartCard extends StatelessWidget {
         if (recentTransactions[i].date.day == weekDay.day &&
             recentTransactions[i].date.month == weekDay.month &&
             recentTransactions[i].date.year == weekDay.year)
-          totalAmountADay += recentTransactions[index].amount;
+          totalAmountADay += recentTransactions[i].amount;
       }
 
       // we will return a list of map has day
