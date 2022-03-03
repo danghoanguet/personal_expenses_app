@@ -13,47 +13,32 @@ class TransactionList extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      // by defalut ListView takes infiniti height which will cause
-      //an error because above this ListView is a Column which will
-      //take all the height it children need
-      //, in this case it's parent has 300 height which
-      //is the Container so there no error
-      // child: ListView(
-      //   children: userTransactions
-      //       .map(
-      //         (transaction) => TransactionCard(transaction: transaction),
-      //       )
-      //       .toList(),
-      // ),
-      child: userTransactions.isEmpty
-          ? Column(
-              children: [
-                Spacer(),
-                Text(
-                  'No transactions added yet',
-                  style: Theme.of(context).textTheme.titleMedium,
+    return userTransactions.isEmpty
+        ? Column(
+            children: [
+              Spacer(),
+              Text(
+                'No transactions added yet',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Spacer(),
+              Container(
+                height: 200,
+                child: Image.asset(
+                  'assets/images/waiting.png',
+                  fit: BoxFit.cover,
                 ),
-                Spacer(),
-                Container(
-                  height: 200,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
-            )
-          : ListView.builder(
-              itemBuilder: (context, index) {
-                return TransactionCard(
-                  transaction: userTransactions[index],
-                  deleteTransaction: deleteTransaction,
-                );
-              },
-              itemCount: userTransactions.length,
-            ),
-    );
+              ),
+            ],
+          )
+        : ListView.builder(
+            itemBuilder: (context, index) {
+              return TransactionCard(
+                transaction: userTransactions[index],
+                deleteTransaction: deleteTransaction,
+              );
+            },
+            itemCount: userTransactions.length,
+          );
   }
 }
