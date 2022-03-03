@@ -14,6 +14,8 @@ class TransactionCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
+            height: 60,
+            width: 60,
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             decoration: BoxDecoration(
@@ -21,10 +23,12 @@ class TransactionCard extends StatelessWidget {
                   Border.all(width: 1.5, color: Theme.of(context).primaryColor),
               shape: BoxShape.circle,
             ),
-            child: Text(
-              '\$' + '${transaction.amount.toStringAsFixed(2)}',
-              style: Theme.of(context).textTheme.titleMedium,
-              textAlign: TextAlign.center,
+            child: FittedBox(
+              child: Text(
+                '\$' + '${transaction.amount.toStringAsFixed(2)}',
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           Column(
