@@ -80,10 +80,19 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ChartCard(),
-          TransactionList(userTransactions: _userTransactions),
+          TransactionList(
+            userTransactions: _userTransactions,
+            deleteTransaction: _deleteTransaction,
+          ),
         ],
       ),
     );
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((transaction) => transaction.id == id);
+    });
   }
 
   void _addNewTransaction({required String title, required double amount}) {

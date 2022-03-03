@@ -4,7 +4,9 @@ import 'package:intl/intl.dart';
 
 class TransactionCard extends StatelessWidget {
   final Transaction transaction;
-  const TransactionCard({Key? key, required this.transaction})
+  final Function deleteTransaction;
+  const TransactionCard(
+      {Key? key, required this.transaction, required this.deleteTransaction})
       : super(key: key);
 
   @override
@@ -50,7 +52,7 @@ class TransactionCard extends StatelessWidget {
           ),
           Spacer(),
           IconButton(
-              onPressed: () {},
+              onPressed: () => deleteTransaction(transaction.id),
               icon: Icon(
                 Icons.delete,
                 color: Colors.red,

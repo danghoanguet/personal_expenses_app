@@ -8,7 +8,8 @@ class ChartCard extends StatelessWidget {
     return Card(
       // this card take it's child size
       color: Colors.blue,
-      elevation: 5,
+      margin: EdgeInsets.all(20),
+      elevation: 6,
       child: Container(
         width: double.infinity,
         //height: 100,
