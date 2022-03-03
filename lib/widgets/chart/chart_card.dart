@@ -27,16 +27,13 @@ class ChartCard extends StatelessWidget {
 
       // we will return a list of map has day
       //and the total amount spent that day
-      return {
-        'day': DateFormat.E().format(weekDay),
-        'amount': '${totalAmountADay}'
-      };
+      return {'day': DateFormat.E().format(weekDay), 'amount': totalAmountADay};
     }).reversed.toList();
   }
 
   double get totalAmountAWeek {
     return groupTransactionValues.fold(0.0, (sum, item) {
-      return sum + double.parse(item['amount'] as String);
+      return sum + (item['amount'] as double);
     });
   }
 
@@ -58,11 +55,10 @@ class ChartCard extends StatelessWidget {
               fit: FlexFit.tight,
               child: ChartBar(
                   label: index['day'] as String,
-                  spendingAmount: double.parse(index['amount'] as String),
+                  spendingAmount: index['amount'] as double,
                   spendingPctOfTotal: totalAmountAWeek == 0.0
                       ? 0.0
-                      : (double.parse(index['amount'] as String) /
-                          totalAmountAWeek)),
+                      : (index['amount'] as double) / totalAmountAWeek),
             );
           }).toList(),
         ), // this text size depends on its String we give so to set size we need container wraped around it
