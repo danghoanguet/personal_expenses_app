@@ -64,6 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
         id: 't6', title: 'new food', amount: 39.99, date: DateTime.now()),
   ];
 
+  bool _showChart = false;
+
   //Get a list of transaction which date is 7 day from DateTime.now()
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((transaction) {
@@ -77,6 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool _inLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     AppBar appBar = AppBar(
       title: Text(
         'Personal Expenses',
@@ -88,39 +92,77 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
+
     return Scaffold(
       appBar: appBar,
-      body: _buildBody(appBar),
+      body: _buildBody(appBar, _inLandScape),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () => _startAddNewTransaction(context)),
     );
   }
 
-  Widget _buildBody(AppBar appBar) {
+  Widget _buildBody(AppBar appBar, bool inLandScape) {
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children:
+          inLandScape ? _buildInLandScape(appBar) : _buildInPortrait(appBar),
+    ));
+  }
+
+  List<Widget> _buildInLandScape(AppBar appBar) {
+    return [
+      Row(
         children: [
-          Container(
+          Text("Show chart"),
+          Switch(
+              value: _showChart,
+              onChanged: (val) {
+                setState(() {
+                  _showChart = val;
+                });
+              })
+        ],
+      ),
+      _showChart
+          ? Container(
               height: (MediaQuery.of(context).size.height -
                       MediaQuery.of(context).padding.top -
                       appBar.preferredSize.height) *
-                  0.3,
-              child: ChartCard(recentTransactions: _recentTransactions)),
-          Container(
-            height: (MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top -
-                    appBar.preferredSize.height) *
-                0.60,
-            child: TransactionList(
-                userTransactions: _userTransactions,
-                deleteTransaction: _deleteTransaction),
-          ),
-        ],
+                  0.7,
+              child: ChartCard(recentTransactions: _recentTransactions))
+          : Container(
+              height: (MediaQuery.of(context).size.height -
+                      MediaQuery.of(context).padding.top -
+                      appBar.preferredSize.height) *
+                  0.7,
+              child: TransactionList(
+                  userTransactions: _userTransactions,
+                  deleteTransaction: _deleteTransaction),
+            ),
+    ];
+  }
+
+  List<Widget> _buildInPortrait(AppBar appBar) {
+    return [
+      Container(
+          height: (MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).padding.top -
+                  appBar.preferredSize.height) *
+              0.3,
+          child: ChartCard(recentTransactions: _recentTransactions)),
+      Container(
+        height: (MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.top -
+                appBar.preferredSize.height) *
+            0.6,
+        child: TransactionList(
+            userTransactions: _userTransactions,
+            deleteTransaction: _deleteTransaction),
       ),
-    );
+    ];
   }
 
   void _deleteTransaction(String id) {
