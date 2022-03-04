@@ -77,35 +77,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Personal Expenses',
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => _startAddNewTransaction(context),
-            icon: Icon(Icons.add),
-          ),
-        ],
+    AppBar appBar = AppBar(
+      title: Text(
+        'Personal Expenses',
       ),
-      body: _buildBody(),
+      actions: [
+        IconButton(
+          onPressed: () => _startAddNewTransaction(context),
+          icon: Icon(Icons.add),
+        ),
+      ],
+    );
+    return Scaffold(
+      appBar: appBar,
+      body: _buildBody(appBar),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () => _startAddNewTransaction(context)),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(AppBar appBar) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ChartCard(recentTransactions: _recentTransactions),
-          TransactionList(
-              userTransactions: _userTransactions,
-              deleteTransaction: _deleteTransaction),
+          Container(
+              height: (MediaQuery.of(context).size.height -
+                      MediaQuery.of(context).padding.top -
+                      appBar.preferredSize.height) *
+                  0.3,
+              child: ChartCard(recentTransactions: _recentTransactions)),
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top -
+                    appBar.preferredSize.height) *
+                0.60,
+            child: TransactionList(
+                userTransactions: _userTransactions,
+                deleteTransaction: _deleteTransaction),
+          ),
         ],
       ),
     );
