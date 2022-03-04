@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
             .copyWith(secondary: Colors.amber),
       ),
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
   }
@@ -41,27 +42,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //     id: 't1', title: 'new shoes', amount: 69.99, date: DateTime.now()),
-    // Transaction(
-    //     id: 't2',
-    //     title: 'new jacket',
-    //     amount: 99.99,
-    //     date: DateTime.now().subtract(Duration(days: 1))),
-    // Transaction(
-    //     id: 't3',
-    //     title: 'new computer',
-    //     amount: 2069.99,
-    //     date: DateTime.now().subtract(Duration(days: 2))),
-    // Transaction(
-    //     id: 't4',
-    //     title: 'new watch',
-    //     amount: 169.99,
-    //     date: DateTime.now().subtract(Duration(days: 3))),
-    // Transaction(
-    //     id: 't5', title: 'new shirt', amount: 49.99, date: DateTime.now()),
-    // Transaction(
-    //     id: 't6', title: 'new food', amount: 39.99, date: DateTime.now()),
+    Transaction(
+        id: 't1', title: 'new shoes', amount: 69.99, date: DateTime.now()),
+    Transaction(
+        id: 't2',
+        title: 'new jacket',
+        amount: 99.99,
+        date: DateTime.now().subtract(Duration(days: 1))),
+    Transaction(
+        id: 't3',
+        title: 'new computer',
+        amount: 2069.99,
+        date: DateTime.now().subtract(Duration(days: 2))),
+    Transaction(
+        id: 't4',
+        title: 'new watch',
+        amount: 169.99,
+        date: DateTime.now().subtract(Duration(days: 3))),
+    Transaction(
+        id: 't5', title: 'new shirt', amount: 49.99, date: DateTime.now()),
+    Transaction(
+        id: 't6', title: 'new food', amount: 39.99, date: DateTime.now()),
   ];
 
   //Get a list of transaction which date is 7 day from DateTime.now()
@@ -77,35 +78,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Personal Expenses',
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => _startAddNewTransaction(context),
-            icon: Icon(Icons.add),
-          ),
-        ],
+    final appBar = AppBar(
+      title: Text(
+        'Personal Expenses',
       ),
-      body: _buildBody(),
+      actions: [
+        IconButton(
+          onPressed: () => _startAddNewTransaction(context),
+          icon: Icon(Icons.add),
+        ),
+      ],
+    );
+    return Scaffold(
+      appBar: appBar,
+      body: _buildBody(appBar),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () => _startAddNewTransaction(context)),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(AppBar appBar) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ChartCard(recentTransactions: _recentTransactions),
-          TransactionList(
-              userTransactions: _userTransactions,
-              deleteTransaction: _deleteTransaction),
+          Container(
+              height: (MediaQuery.of(context).size.height -
+                      MediaQuery.of(context).padding.top -
+                      appBar.preferredSize.height) *
+                  0.3,
+              child: ChartCard(recentTransactions: _recentTransactions)),
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top -
+                    appBar.preferredSize.height) *
+                0.6,
+            child: TransactionList(
+                userTransactions: _userTransactions,
+                deleteTransaction: _deleteTransaction),
+          ),
         ],
       ),
     );
