@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/models/transaction.dart';
@@ -54,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
         id: 't3',
         title: 'new computer',
-        amount: 2069.99,
+        amount: 109.99,
         date: DateTime.now().subtract(Duration(days: 2))),
     Transaction(
         id: 't4',
@@ -62,9 +61,20 @@ class _MyHomePageState extends State<MyHomePage> {
         amount: 169.99,
         date: DateTime.now().subtract(Duration(days: 3))),
     Transaction(
-        id: 't5', title: 'new shirt', amount: 49.99, date: DateTime.now()),
+        id: 't5',
+        title: 'new shirt',
+        amount: 49.99,
+        date: DateTime.now().subtract(Duration(days: 4))),
     Transaction(
-        id: 't6', title: 'new food', amount: 39.99, date: DateTime.now()),
+        id: 't6',
+        title: 'new food',
+        amount: 39.99,
+        date: DateTime.now().subtract(Duration(days: 5))),
+    Transaction(
+        id: 't6',
+        title: 'new drinks',
+        amount: 79.99,
+        date: DateTime.now().subtract(Duration(days: 6))),
   ];
 
   bool _showChart = false;
@@ -82,9 +92,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool _inLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-    final dynamic appBar = Platform.isIOS
+    final mediaQuery = MediaQuery.of(context);
+    bool _inLandScape = mediaQuery.orientation == Orientation.landscape;
+    return Platform.isIOS
+        ? CupertinoPageScaffold(child: _buildBody(appBar(), _inLandScape))
+        : Scaffold(
+            appBar: appBar(),
+            body: _buildBody(appBar(), _inLandScape),
+            floatingActionButton: Platform.isIOS
+                ? SizedBox()
+                : FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => _startAddNewTransaction(context)),
+          );
+  }
+
+  dynamic appBar() {
+    return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: Text(
               'Personal Expenses',
@@ -110,18 +134,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           );
-
-    return Platform.isIOS
-        ? CupertinoPageScaffold(child: _buildBody(appBar, _inLandScape))
-        : Scaffold(
-            appBar: appBar,
-            body: _buildBody(appBar, _inLandScape),
-            floatingActionButton: Platform.isIOS
-                ? Container()
-                : FloatingActionButton(
-                    child: Icon(Icons.add),
-                    onPressed: () => _startAddNewTransaction(context)),
-          );
   }
 
   Widget _buildBody(PreferredSizeWidget appBar, bool inLandScape) {
@@ -137,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> _buildInLandScape(PreferredSizeWidget appBar) {
+    final mediaQuery = MediaQuery.of(context);
     return [
       Row(
         children: [
@@ -153,14 +166,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       _showChart
           ? Container(
-              height: (MediaQuery.of(context).size.height -
-                      MediaQuery.of(context).padding.top -
+              height: (mediaQuery.size.height -
+                      mediaQuery.padding.top -
                       appBar.preferredSize.height) *
                   0.7,
               child: ChartCard(recentTransactions: _recentTransactions))
           : Container(
-              height: (MediaQuery.of(context).size.height -
-                      MediaQuery.of(context).padding.top -
+              height: (mediaQuery.size.height -
+                      mediaQuery.padding.top -
                       appBar.preferredSize.height) *
                   0.7,
               child: TransactionList(
@@ -171,16 +184,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> _buildInPortrait(PreferredSizeWidget appBar) {
+    final mediaQuery = MediaQuery.of(context);
     return [
       Container(
-          height: (MediaQuery.of(context).size.height -
-                  MediaQuery.of(context).padding.top -
+          height: (mediaQuery.size.height -
+                  mediaQuery.padding.top -
                   appBar.preferredSize.height) *
               0.3,
           child: ChartCard(recentTransactions: _recentTransactions)),
       Container(
-        height: (MediaQuery.of(context).size.height -
-                MediaQuery.of(context).padding.top -
+        height: (mediaQuery.size.height -
+                mediaQuery.padding.top -
                 appBar.preferredSize.height) *
             0.6,
         child: TransactionList(
