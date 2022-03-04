@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -16,60 +19,73 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        margin: EdgeInsets.all(5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: InputDecoration(
-                labelText: 'Enter your title',
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          margin: EdgeInsets.only(
+              top: 10,
+              left: 10,
+              right: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                controller: _titleController,
+                decoration: InputDecoration(
+                  labelText: 'Enter your title',
+                ),
               ),
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              controller: _amountController,
-              decoration: InputDecoration(
-                labelText: 'Enter your amount',
+              TextField(
+                keyboardType: TextInputType.number,
+                controller: _amountController,
+                decoration: InputDecoration(
+                  labelText: 'Enter your amount',
+                ),
+                onSubmitted: (_) => _submitData(),
               ),
-              onSubmitted: (_) => _submitData(),
-            ),
-            Container(
-              height: 80,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(_selectedDate == null
-                        ? 'No Date Chosen!'
-                        : 'Pick Date: ${DateFormat.yMd().format(_selectedDate!)}'),
-                  ),
-                  TextButton(
-                    onPressed: _presentDatePicker,
-                    child: Text(
-                      'Choose Date!',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+              Container(
+                height: 80,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(_selectedDate == null
+                          ? 'No Date Chosen!'
+                          : 'Pick Date: ${DateFormat.yMd().format(_selectedDate!)}'),
                     ),
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(
-                          Theme.of(context).primaryColor),
-                    ),
-                  )
-                ],
+                    Platform.isIOS
+                        ? CupertinoButton(
+                            child: Text(
+                              'Choose Date!',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: _presentDatePicker)
+                        : TextButton(
+                            onPressed: _presentDatePicker,
+                            child: Text(
+                              'Choose Date!',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor),
+                            ),
+                          )
+                  ],
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: _submitData,
-              child: Text('Add transaction'),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(Theme.of(context).primaryColor),
-                // foregroundColor: MaterialStateProperty.all(
-                //     Theme.of(context).textTheme.button.color),
+              ElevatedButton(
+                onPressed: _submitData,
+                child: Text('Add transaction'),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Theme.of(context).primaryColor),
+                  // foregroundColor: MaterialStateProperty.all(
+                  //     Theme.of(context).textTheme.button.color),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -15,7 +15,6 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
       // by defalut ListView takes infiniti height which will cause
       // an error because above this ListView is a Column which will
       // take all the height it children need
@@ -69,13 +68,27 @@ class TransactionList extends StatelessWidget {
                     ),
                     subtitle: Text(DateFormat.yMMMd()
                         .format(userTransactions[index].date)),
-                    trailing: IconButton(
-                        onPressed: () =>
-                            deleteTransaction(userTransactions[index].id),
-                        icon: Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        )),
+                    trailing: MediaQuery.of(context).size.width > 450
+                        ? TextButton.icon(
+                            style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all(Colors.red)),
+                            onPressed: () =>
+                                deleteTransaction(userTransactions[index].id),
+                            label: Text('Delete'),
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                          )
+                        : IconButton(
+                            onPressed: () =>
+                                deleteTransaction(userTransactions[index].id),
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                          ),
                   ),
                 );
               },

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/models/transaction.dart';
 import 'package:flutter_complete_guide/widgets/transactions/new_transaction.dart';
@@ -81,43 +84,65 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     bool _inLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    AppBar appBar = AppBar(
-      title: Text(
-        'Personal Expenses',
-      ),
-      actions: [
-        IconButton(
-          onPressed: () => _startAddNewTransaction(context),
-          icon: Icon(Icons.add),
-        ),
-      ],
-    );
+    final dynamic appBar = Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: Text(
+              'Personal Expenses',
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  child: Icon(CupertinoIcons.add),
+                  onTap: () => _startAddNewTransaction(context),
+                )
+              ],
+            ),
+          )
+        : AppBar(
+            title: Text(
+              'Personal Expenses',
+            ),
+            actions: [
+              IconButton(
+                onPressed: () => _startAddNewTransaction(context),
+                icon: Icon(Icons.add),
+              ),
+            ],
+          );
 
-    return Scaffold(
-      appBar: appBar,
-      body: _buildBody(appBar, _inLandScape),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => _startAddNewTransaction(context)),
+    return Platform.isIOS
+        ? CupertinoPageScaffold(child: _buildBody(appBar, _inLandScape))
+        : Scaffold(
+            appBar: appBar,
+            body: _buildBody(appBar, _inLandScape),
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => _startAddNewTransaction(context)),
+          );
+  }
+
+  Widget _buildBody(PreferredSizeWidget appBar, bool inLandScape) {
+    return SafeArea(
+      child: SingleChildScrollView(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:
+            inLandScape ? _buildInLandScape(appBar) : _buildInPortrait(appBar),
+      )),
     );
   }
 
-  Widget _buildBody(AppBar appBar, bool inLandScape) {
-    return SingleChildScrollView(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children:
-          inLandScape ? _buildInLandScape(appBar) : _buildInPortrait(appBar),
-    ));
-  }
-
-  List<Widget> _buildInLandScape(AppBar appBar) {
+  List<Widget> _buildInLandScape(PreferredSizeWidget appBar) {
     return [
       Row(
         children: [
-          Text("Show chart"),
-          Switch(
+          Text("Show chart", style: Theme.of(context).textTheme.titleMedium),
+          Switch.adaptive(
+              activeColor: Theme.of(context).primaryColor,
               value: _showChart,
               onChanged: (val) {
                 setState(() {
@@ -145,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  List<Widget> _buildInPortrait(AppBar appBar) {
+  List<Widget> _buildInPortrait(PreferredSizeWidget appBar) {
     return [
       Container(
           height: (MediaQuery.of(context).size.height -
