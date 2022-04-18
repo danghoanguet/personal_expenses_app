@@ -26,7 +26,7 @@ class _TransactionCardState extends State<TransactionCard> {
       Colors.green,
       Colors.pink,
     ];
-    _bgColor = colors[Random().nextInt(4)] as Color;
+    _bgColor = colors[Random().nextInt(4)];
     super.initState();
   }
 
