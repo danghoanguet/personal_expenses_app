@@ -1,13 +1,31 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/screens/landing_screen.dart';
 
-void main() => runApp(MyApp());
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    if (Firebase.apps.isEmpty) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+        //name: 'mychatapp',
+      ).then((_) => print('completed'));
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Personal Expenses',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.purple,
         fontFamily: 'Quicksand',

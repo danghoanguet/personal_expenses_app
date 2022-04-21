@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_complete_guide/providers/transaction_provider.dart';
 import 'package:flutter_complete_guide/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 import 'auth_screen.dart';
 
 class LandingScreen extends StatelessWidget {
@@ -18,7 +20,14 @@ class LandingScreen extends StatelessWidget {
           );
         }
         if (snapshot.hasData) {
-          return MyHomePage();
+          return ChangeNotifierProvider(
+            create: (context) => TransactionProvider(),
+            child: Consumer<TransactionProvider>(
+              builder: (context, transactionProvider, child) => MyHomePage(
+                transactionProvider: transactionProvider,
+              ),
+            ),
+          );
         }
         return AuthScreen();
       },

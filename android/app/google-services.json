@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "623397062568",
+    "firebase_url": "https://personal-expense-app-2eea0-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "personal-expense-app-2eea0",
+    "storage_bucket": "personal-expense-app-2eea0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623397062568:android:a66e19e126f7f1737d7f9d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_complete_guide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623397062568-hl2da9ngs89tgjfclkrh1n1srv2i1i7l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_complete_guide",
+            "certificate_hash": "a4b680d9d7a43032c268e1dd0255a6cc4db938e3"
+          }
+        },
+        {
+          "client_id": "623397062568-ofqj0gk7ul4ch1lpshdod7lel6c0vn4r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrWG-YVcvAMMsz1KeX-Y8eX8YXUSR49OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623397062568-ofqj0gk7ul4ch1lpshdod7lel6c0vn4r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "623397062568-6sj4q09t6eg1odmeuog699535nbg97r4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "clear"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
